@@ -14,7 +14,6 @@ def stream(i):
     while cap.isOpened():
         ret, frame = cap.read()
         cv2.imshow("frame", frame)
-        time.sleep(2)
         cv2.imwrite('image%s.jpg' % i, frame)  
         time.sleep(3)
         break
