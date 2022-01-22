@@ -30,7 +30,7 @@ def stream(i):
 				cv2.imwrite('image%s.jpg' % i, frame1)
 				cap.release()
 
-for x in range(3):
+for x in range(100):
 	cap = cv2.VideoCapture(0)
 	#cap = cv2.VideoCapture('http://192.168.5.16:8080/video')
 	stream(x)
