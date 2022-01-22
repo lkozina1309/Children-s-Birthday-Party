@@ -1,6 +1,7 @@
 # This script will use stream function one hundred times
-# Function will start the stream, take a photo and break after 3 seconds
+# Function will start the stream and takes a photo when face is detected 
 # Useful for automatic photographing
+
 
 # import the libraries
 import numpy as np
@@ -16,7 +17,7 @@ face_cascade = cv2.CascadeClassifier('haar_cascades.xml')
 def stream(i):
     while cap.isOpened():
         ret, frame = cap.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)                   # convert to grayscale
         faces = face_cascade.detectMultiScale(gray, 1.3, 10)
 
         if len(faces) > 0:
@@ -25,7 +26,7 @@ def stream(i):
             break
 
 # Calling a function (change the parameter if you want more photos) 		
-for x in range(3):
+for x in range(100):
     stream(x)
 
 cap.release()
