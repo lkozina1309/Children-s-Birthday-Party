@@ -1,3 +1,9 @@
+# This script is used from aerial video recording, in this case for children's birthday party
+# The drone will takeoff, go to exact point, record a video during rotation and come back to starting point autonomously  
+# Useful for automatic video recording
+
+
+# import the libraries
 from __future__ import print_function
 import os
 import numpy as np
@@ -44,7 +50,7 @@ class Drone:
         rospy.wait_for_service('/mavros/cmd/takeoff')
         try:
 		    takeoffService = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
-		    response = takeoffService(altitude = 2, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)
+		    response = takeoffService(altitude = 10, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)             # change the altitude if you want different
 		    rospy.loginfo(response)
         except rospy.ServiceException as e:
             print ("Service takeoff call failed: %s"%e)
@@ -74,31 +80,31 @@ class Drone:
 			
 def main(args):
 	v=Drone()
-	v.connect("drone",rate=10)
+	v.connect("drone",rate=10)           # connecting
 	time.sleep(3)
 	rospy.wait_for_service('/mavros/set_mode')
 	change_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
-	response = change_mode(custom_mode="GUIDED")
+	response = change_mode(custom_mode="GUIDED")                    #setting mode to GUIDED
 	print("Mode set to GUIDED")
 	time.sleep(3)
-	v.arm()
+	v.arm()                                           # arming the motors
 	time.sleep(3)
-	v.takeoff()
+	v.takeoff()                                      # takeoff to 10 meters
 	time.sleep(3)
-    camera = picamera.PiCamera()
-    camera.resolution = (640, 480)
-    camera.start_recording('my_video.h264')
-    camera.wait_recording(650)
+    	camera = picamera.PiCamera()
+    	camera.resolution = (640, 480)
+    	camera.start_recording('my_video.h264')         #start recording
+    	camera.wait_recording(650)
 
-	vel = [[0, 0], [-5, 0], [0, -5]]
+	vel = [[0, 0], [-5, 0], [0, -5]]                # change the values if they are different from your starting point and point of rotation
 	i = 0
 	while i < len (vel):
 		x = vel [i] [0]
 		y = vel [i] [1]
 		v.move(x, y)
 		i = i+1
-    v.rotate(0.2)
-    vel = [[0, 0], [0, 5], [5, 0]]
+    	v.rotate(0.2)                                  # change if you want different rotational speed
+    	vel = [[0, 0], [0, 5], [5, 0]]
 	i = 0
 	while i < len (vel):
 		x = vel [i] [0]
@@ -106,7 +112,7 @@ def main(args):
 		v.move(x, y)
 		i = i+1
 	camera.stop_recording()
-    v.land()
+    	v.land()
 	time.sleep(10)
 	
 if __name__ == "__main__":
