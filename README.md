@@ -12,6 +12,8 @@ Using OpenCV tools for automatically taking photos.
 Python 
 OpenCV
 Numpy
+Picamera
+ROS
 ```
 
 ### Webpage
