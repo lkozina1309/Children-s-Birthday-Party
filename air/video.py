@@ -1,4 +1,4 @@
-# This script is used from aerial video recording, in this case for children's birthday party
+# This script is used for aerial video recording, in this case for children's birthday party
 # The drone will takeoff, go to exact point, record a video during rotation and come back to starting point autonomously  
 # Useful for automatic video recording
 
