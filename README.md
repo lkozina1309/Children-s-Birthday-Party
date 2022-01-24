@@ -18,7 +18,7 @@ ROS
 
 ### Webpage
 
-https://lukakozina6.wixsite.com/cvlab
+https://lukakozina6.wixsite.com/cvlab/post/children-s-birthday-party
 
 ### Description
 
