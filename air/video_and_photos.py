@@ -1,6 +1,6 @@
-# This script is used for aerial video recording, in this case for children's birthday party
-# The drone will takeoff, go to exact point, record a video during rotation and come back to starting point autonomously  
-# Useful for automatic video recording
+# This script is used for aerial video recording and taking images, in this case for children's birthday party
+# The drone will takeoff, go to exact point, record a video and take photos during rotation and come back to starting point autonomously  
+# Useful for automatic video recording and photographing
 
 
 # import the libraries
@@ -79,6 +79,10 @@ class Drone:
 		print ("service land call failed: %s. The vehicle cannot land "%e) 
 			
 def main(args):
+	camera = PiCamera()
+	camera.resolution = (640, 480)
+	camera.framerate = 32
+	rawCapture = PiRGBArray(camera, size=(640, 480))
 	v=Drone()
 	v.connect("drone",rate=10)           # connecting
 	time.sleep(3)
@@ -91,10 +95,18 @@ def main(args):
 	time.sleep(3)
 	v.takeoff()                                      # takeoff to 10 meters
 	time.sleep(3)
-    	camera = picamera.PiCamera()
-    	camera.resolution = (640, 480)
     	camera.start_recording('my_video.h264')         #start recording
-    	camera.wait_recording(650)
+    	camera.wait_recording(200)
+	camera.stop_recording()
+	for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+		image = frame.array
+    		rawCapture.truncate(0)
+    		for i in range(80):
+        		camera.start_preview()
+        		time.sleep(2)
+        		camera.capture('image%s.jpg' %i)
+        		time.sleep(5)
+        	break
 
 	vel = [[0, 0], [-5, 0], [0, -5]]                # change the values if they are different from your starting point and point of rotation
 	i = 0
@@ -110,8 +122,7 @@ def main(args):
 		x = vel [i] [0]
 		y = vel [i] [1]
 		v.move(x, y)
-		i = i+1
-	camera.stop_recording()
+		i = i+1	
     	v.land()
 	time.sleep(10)
 	
