@@ -46,37 +46,37 @@ class Drone:
             print ("Service arm call failed: %s" %e)	
  
     def takeoff(self):
-	    print("Takeoff ...")
+	print("Takeoff ...")
         rospy.wait_for_service('/mavros/cmd/takeoff')
         try:
-		    takeoffService = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
-		    response = takeoffService(altitude = 10, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)             # change the altitude if you want different
-		    rospy.loginfo(response)
+		takeoffService = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
+		response = takeoffService(altitude = 10, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)             # change the altitude if you want different
+		rospy.loginfo(response)
         except rospy.ServiceException as e:
             print ("Service takeoff call failed: %s"%e)
-			
-	def move(self, x, y):
-		pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
-		vel = TwistStamped()
-		vel.twist.linear.x= x;
-		vel.twist.linear.y= y;
-		pub.publish(vel);	
-		time.sleep(5)		
+
+    def move(self, x, y):
+	pub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
+	vel = TwistStamped()
+	vel.twist.linear.x= x;
+	vel.twist.linear.y= y;
+	pub.publish(vel);	
+	time.sleep(5)		
     
     def rotate(self,z):
        vel = TwistStamped()
        vel.twist.rotate.z = z 
        time.sleep(600)
-		
-	def land(self):
-		print("Landing... ")
-		rospy.wait_for_service('/mavros/cmd/land')
-		try:
-			landService = rospy.ServiceProxy('/mavros/cmd/land', CommandTOL)
-			response = landService(altitude = 0, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)
-			rospy.loginfo(response)
-		except rospy.ServiceException as e:
-			print ("service land call failed: %s. The vehicle cannot land "%e) 
+
+    def land(self):
+	print("Landing... ")
+	rospy.wait_for_service('/mavros/cmd/land')
+	try:
+		landService = rospy.ServiceProxy('/mavros/cmd/land', CommandTOL)
+		response = landService(altitude = 0, latitude = 0, longitude = 0, min_pitch = 0, yaw = 0)
+		rospy.loginfo(response)
+	except rospy.ServiceException as e:
+		print ("service land call failed: %s. The vehicle cannot land "%e) 
 			
 def main(args):
 	v=Drone()
