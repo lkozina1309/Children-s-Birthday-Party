@@ -1,5 +1,5 @@
 # This script will use stream function one hundred times
-# Function will start the stream, take a photo and break after 3 seconds
+# Function will start the stream, take a photo if there no motion and break after 3 seconds
 # Useful for automatic photographing
 
 
