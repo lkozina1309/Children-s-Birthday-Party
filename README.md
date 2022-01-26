@@ -22,7 +22,7 @@ https://lukakozina6.wixsite.com/cvlab/post/children-s-birthday-party
 
 ### Description
 
-Throwing a birthday party for children can be exhausting so I have an idea how it can be a little bit easier.
+Let's take birthday parties of our children to higher level.
 
 We can use simple OpenCV scripts to take photos while streaming and it be can automatically, without the need for our labor. We can choose the moment of shooting and there are several options. Cameras can be set to take photos after some time (for example, every 50 seconds), when some face is detected, when there are no movement or when some shape or text is detected.
  
