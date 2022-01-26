@@ -3,7 +3,7 @@ Automatic photographing from ordinary cameras, webcams or mobile phones with Ope
 
 ## Getting Started
 
-Using OpenCV tools for automatically taking photos. 
+Using OpenCV tools to take photos automatically . 
 
 ### Prerequisites
 
