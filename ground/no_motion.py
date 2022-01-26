@@ -23,7 +23,7 @@ def stream(i):
 		contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)             #find contours
 
 		for contour in contours:
-			time.sleep(2)        
+			time.sleep(2)                                      # we need 2 seconds without motion
 			array = []
 			# set boundary for no_motion
 			if cv2.contourArea(contour) < 100:
